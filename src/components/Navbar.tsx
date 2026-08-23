@@ -93,7 +93,7 @@ export default function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Link href="/join" className="btn btn-solid mt-5 self-start">
+          <Link href="/join" className="btn btn-solid mt-5 w-full">
             Join the Founding 100
           </Link>
         </nav>

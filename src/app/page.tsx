@@ -304,7 +304,7 @@ export default function HomePage() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h3 className="font-display mt-2 pr-20 text-lg font-medium">{event.title}</h3>
+                  <h3 className="font-display mt-2 text-lg font-medium">{event.title}</h3>
                   <p className="mt-1 text-sm text-mocha">{event.description}</p>
                   <div className="mt-3">
                     <span

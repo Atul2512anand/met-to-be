@@ -44,7 +44,7 @@ export default function EventsPage() {
                   >
                     {String(i + 1).padStart(2, "0")}
                   </span>
-                  <h2 className="font-display mt-2 pr-20 text-lg font-medium">{event.title}</h2>
+                  <h2 className="font-display mt-2 text-lg font-medium">{event.title}</h2>
                   <p className="mt-1 text-sm text-mocha">{event.description}</p>
                   <div className="mt-3">
                     <span

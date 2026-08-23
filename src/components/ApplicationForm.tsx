@@ -31,7 +31,7 @@ type Fields = {
 type Status = "idle" | "loading" | "success" | "error";
 
 const inputClass =
-  "w-full rounded-full border border-cream/25 bg-cream/10 px-6 py-3.5 text-cream placeholder:text-cream/40 focus:border-clay focus:outline-none transition-colors";
+  "w-full rounded-full border border-cream/25 bg-cream/10 px-6 py-3.5 text-base text-cream placeholder:text-cream/40 focus:border-clay focus:outline-none transition-colors";
 
 export default function ApplicationForm({
   recommended,
@@ -285,10 +285,10 @@ export default function ApplicationForm({
             ].map(([label, value]) => (
               <div
                 key={label}
-                className="flex justify-between gap-6 border-b border-cream/10 py-2.5 last:border-b-0"
+                className="flex justify-between gap-4 border-b border-cream/10 py-2.5 last:border-b-0"
               >
-                <dt className="text-cream/50">{label}</dt>
-                <dd className="text-right font-medium text-cream">{value}</dd>
+                <dt className="shrink-0 text-cream/50">{label}</dt>
+                <dd className="min-w-0 break-words text-right font-medium text-cream">{value}</dd>
               </div>
             ))}
           </dl>

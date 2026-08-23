@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import nodemailer from "nodemailer";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -103,6 +104,79 @@ async function notifyBySheet(app: Application): Promise<boolean> {
   }
 }
 
+function buildConfirmationHtml(app: Application): string {
+  return `<div style="font-family:Arial,sans-serif;max-width:540px;margin:auto;border:1px solid #e9dfcf;border-radius:14px;overflow:hidden;">
+    <div style="background:#c4643e;color:#ffffff;padding:20px 22px;">
+      <div style="font-size:13px;letter-spacing:0.18em;">MET&nbsp;TO&nbsp;BE</div>
+      <div style="font-size:19px;font-weight:bold;margin-top:6px;">Application received</div>
+    </div>
+    <div style="padding:24px 26px;color:#231c16;font-size:14px;line-height:1.7;">
+      <p style="margin:0 0 12px;">Hi ${escapeHtml(app.name)},</p>
+      <p style="margin:0 0 16px;">Thank you for applying to the Founding 100 in ${escapeHtml(app.city)}. Your application is now with our review team.</p>
+      <div style="margin:0 0 18px;padding:14px 18px;background:#fce9dc;border-radius:10px;">Your reference:&nbsp;<strong style="letter-spacing:0.08em;">${escapeHtml(app.reference)}</strong></div>
+      <p style="margin:0 0 8px;font-weight:600;">What happens next</p>
+      <ol style="margin:0 0 16px;padding-left:20px;color:#5c5248;">
+        <li style="margin-bottom:6px;">A human reviews your application within 48 hours.</li>
+        <li style="margin-bottom:6px;">Accepted applicants receive identity verification steps.</li>
+        <li>Founding 100 onboarding, then invitations to the first curated events.</li>
+      </ol>
+      <p style="margin:0;color:#5c5248;">Applications are read by people, not scored by software. Not everyone is admitted — that is what keeps the room worth being in.</p>
+    </div>
+    <div style="padding:14px 22px;background:#faf5ee;color:#5c5248;font-size:12px;">Met To Be &nbsp;·&nbsp; Meet. Connect. Choose.</div>
+  </div>`;
+}
+
+async function sendConfirmation(app: Application): Promise<boolean> {
+  const gmailUser = process.env.GMAIL_USER;
+  const gmailPass = process.env.GMAIL_APP_PASSWORD;
+
+  if (gmailUser && gmailPass) {
+    try {
+      const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: { user: gmailUser, pass: gmailPass },
+      });
+      await transporter.sendMail({
+        from: `"Met To Be" <${gmailUser}>`,
+        to: app.email,
+        replyTo: process.env.NOTIFY_EMAIL ?? undefined,
+        subject: `Application received — ${app.reference} | Met To Be`,
+        html: buildConfirmationHtml(app),
+      });
+      return true;
+    } catch (error) {
+      console.error("[waitlist] gmail confirmation failed", error);
+      return false;
+    }
+  }
+
+  console.warn(
+    "[waitlist] confirmation via gmail skipped — falling back to resend"
+  );
+
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey) {
+    console.warn("[waitlist] confirmation skipped — RESEND_API_KEY missing");
+    return false;
+  }
+
+  try {
+    const resend = new Resend(apiKey);
+    await resend.emails.send({
+      from: process.env.MAIL_FROM ?? "Met To Be <onboarding@resend.dev>",
+      to: app.email,
+      replyTo: process.env.NOTIFY_EMAIL ?? undefined,
+      subject: `Application received — ${app.reference} | Met To Be`,
+      html: buildConfirmationHtml(app),
+    });
+    return true;
+  } catch (error) {
+    console.error("[waitlist] confirmation failed", error);
+    return false;
+  }
+}
+
 export async function POST(request: Request) {
   let payload: WaitlistPayload;
 
@@ -157,17 +231,25 @@ export async function POST(request: Request) {
     at: new Date().toISOString(),
   };
 
-  const [emailed, savedToSheet] = await Promise.all([
+  const [emailed, savedToSheet, confirmed] = await Promise.all([
     notifyByEmail(app),
     notifyBySheet(app),
+    sendConfirmation(app),
   ]);
 
-  console.info("[waitlist]", app, `emailed=${emailed}`, `sheet=${savedToSheet}`);
+  console.info(
+    "[waitlist]",
+    app,
+    `emailed=${emailed}`,
+    `sheet=${savedToSheet}`,
+    `confirmed=${confirmed}`
+  );
 
   return Response.json({
     ok: true,
     reference: app.reference,
     emailed,
     savedToSheet,
+    confirmed,
   });
 }

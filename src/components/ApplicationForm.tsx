@@ -35,8 +35,10 @@ const inputClass =
 
 export default function ApplicationForm({
   recommended,
+  experienceName,
 }: {
   recommended?: QuizStyleKey;
+  experienceName?: string;
 }) {
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<Status>("idle");
@@ -120,7 +122,7 @@ export default function ApplicationForm({
           {[
             "Team reviews your application and quiz result",
             "You receive an identity verification invitation",
-            "Founding 100 onboarding and first event access",
+            "Choose the Pass, then book your first experience",
           ].map((line, i) => (
             <li
               key={line}
@@ -138,7 +140,7 @@ export default function ApplicationForm({
           admitted — that is what keeps the room worth being in.
         </p>
         <Link href="/quiz" className="btn btn-outline mt-7 !border-cream/25 !text-cream hover:!border-clay">
-          Take the style quiz while you wait
+          Take the experience quiz while you wait
         </Link>
       </div>
     );
@@ -161,6 +163,13 @@ export default function ApplicationForm({
 
   return (
     <div>
+      {experienceName ? (
+        <div className="mb-6 rounded-2xl border border-peach/40 bg-peach/10 px-5 py-4 text-sm leading-relaxed text-peach">
+          We’ll fast-track your seat interest for{" "}
+          <strong>{experienceName}</strong> — your reference travels with it.
+        </div>
+      ) : null}
+
       {recommended ? (
         <div className="mb-6 rounded-2xl border border-peach/40 bg-peach/10 px-5 py-4 text-sm leading-relaxed text-peach">
           Based on your style quiz, we suggest starting with{" "}

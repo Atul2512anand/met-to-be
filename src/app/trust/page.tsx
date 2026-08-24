@@ -3,7 +3,7 @@ import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import CtaBand from "@/components/CtaBand";
 import VerificationBadges from "@/components/VerificationBadges";
-import { trustItems } from "@/lib/data";
+import { trustLayers } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Trust & Safety",
@@ -35,7 +35,7 @@ export default function TrustPage() {
       <section className="pb-24">
         <div className="container-x">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {trustItems.map((item, i) => (
+            {trustLayers.map((item, i) => (
               <Reveal key={item.title} delay={(i % 3) * 0.08}>
                 <div className="card h-full p-7 transition-all duration-300 hover:-translate-y-1 hover:border-clay hover:shadow-[0_20px_50px_-30px_rgba(196,100,62,0.5)]">
                   <h2 className="font-display text-xl font-medium">{item.title}</h2>
@@ -62,14 +62,14 @@ export default function TrustPage() {
                   Designed for safer first meetings
                 </h2>
                 <p className="mt-4 max-w-lg text-cream/70">
-                  Public-venue recommendations, optional meeting-detail sharing
-                  with a trusted contact, and private post-meeting feedback on
-                  every date and event.
+                  Hosted, managed venues with check-in, public-venue defaults for
+                  first meetings, optional trusted-contact sharing and private
+                  post-experience feedback on every date.
                 </p>
               </div>
               <ul className="space-y-3">
                 {[
-                  "Curated public venues",
+                  "Hosted, managed venues",
                   "Trusted-contact alerts",
                   "Private post-meeting feedback",
                   "Human moderation review",

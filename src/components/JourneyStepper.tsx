@@ -1,6 +1,6 @@
 import { HeartHandshake, MessagesSquare, SearchCheck } from "lucide-react";
 import Reveal from "./Reveal";
-import { journeySteps } from "@/lib/data";
+import { journeySteps } from "@/lib/events";
 
 const icons = [SearchCheck, MessagesSquare, HeartHandshake] as const;
 

@@ -1,22 +1,15 @@
 import Link from "next/link";
-import { ArrowRight, Heart, Quote } from "lucide-react";
+import { ArrowRight, Heart, MapPin, Quote } from "lucide-react";
 import Marquee from "@/components/Marquee";
 import TrustStatsBand from "@/components/TrustStatsBand";
 import HeroPaths from "@/components/HeroPaths";
+import ExperienceCard from "@/components/ExperienceCard";
 import Reveal from "@/components/Reveal";
 import SectionHeading from "@/components/SectionHeading";
 import CtaBand from "@/components/CtaBand";
 import Logo from "@/components/Logo";
-import { compareColumns, eventTypes, journeySteps } from "@/lib/data";
+import { categories, featuredExperiences, journeySteps } from "@/lib/events";
 import { posts } from "@/lib/posts";
-
-const heroFacts = [
-  { strong: "No AI matchmaking", span: "Humans decide" },
-  { strong: "Verified members", span: "Identity-checked profiles" },
-  { strong: "Curated events", span: "Real life comes first" },
-];
-
-const eventTones = ["text-clay", "text-marigold-deep", "text-sage-deep", "text-rose-deep"];
 
 const journalCatTones: Record<string, string> = {
   Philosophy: "text-clay border-clay/70",
@@ -27,7 +20,7 @@ const journalCatTones: Record<string, string> = {
 export default function HomePage() {
   return (
     <>
-      <section className="relative overflow-hidden bg-[radial-gradient(55%_80%_at_82%_12%,rgba(242,168,61,0.22),transparent_60%),radial-gradient(45%_70%_at_10%_85%,rgba(226,121,144,0.18),transparent_60%),radial-gradient(35%_55%_at_28%_15%,rgba(125,158,113,0.16),transparent_60%)] py-24 lg:py-32">
+      <section className="relative overflow-hidden bg-[radial-gradient(55%_80%_at_82%_12%,rgba(242,168,61,0.22),transparent_60%),radial-gradient(45%_70%_at_10%_85%,rgba(226,121,144,0.18),transparent_60%),radial-gradient(35%_55%_at_28%_15%,rgba(125,158,113,0.16),transparent_60%)] py-20 lg:py-28">
         <HeroPaths />
         <div
           aria-hidden="true"
@@ -37,171 +30,120 @@ export default function HomePage() {
           aria-hidden="true"
           className="floaty-delay pointer-events-none absolute -right-12 bottom-8 h-72 w-72 rounded-full bg-rose/20 blur-3xl"
         />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute right-[22%] top-[52%] h-44 w-44 rounded-full bg-sage/20 blur-3xl"
-        />
         <div className="container-x relative z-10 mx-auto max-w-4xl text-center">
           <Reveal>
-            <p className="eyebrow">A marriage-intent relationship platform</p>
+            <p className="inline-flex items-center gap-1.5 rounded-full border border-clay/30 bg-[#FFFDF9] px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-mocha">
+              <MapPin size={13} className="text-clay" />
+              Currently in Bengaluru · Other cities coming soon
+            </p>
           </Reveal>
           <Reveal delay={0.08}>
-            <h1 className="font-display text-[clamp(2.4rem,5.6vw,4.4rem)] leading-[1.1] font-medium tracking-tight">
-              Too modern for <em className="highlight">matrimony</em>.
+            <h1 className="font-display mt-7 text-[clamp(2.5rem,6vw,4.8rem)] font-medium leading-[1.08] tracking-tight">
+              Maybe you haven’t
               <br />
-              Too intentional for <em className="highlight">dating</em>.
+              <span className="highlight">met them</span> yet.
             </h1>
           </Reveal>
           <Reveal delay={0.16}>
             <p className="mx-auto mt-6 max-w-2xl text-lg text-mocha">
-              Met To Be is a verified, offline-first platform for people who are
-              serious about finding a life partner — without dating-app culture,
-              and without biodata-style transactions.
+              A modern way to meet people who are ready for marriage.
+              <br className="hidden sm:block" />
+              No endless swiping. No biodata hunting. No algorithm deciding your
+              future.
             </p>
           </Reveal>
           <Reveal delay={0.24}>
-            <div className="mt-8 flex flex-wrap justify-center gap-3" aria-hidden="true">
-              {["MEET.", "CONNECT.", "CHOOSE."].map((tag, i) => {
-                const tones = [
-                  "border-marigold bg-marigold",
-                  "border-clay bg-clay",
-                  "border-sage bg-sage",
-                ];
-                return (
-                  <span
-                    key={tag}
-                    className={`font-display rounded-full border px-5 py-2 text-sm font-semibold tracking-[0.18em] text-white ${
-                      tones[i] ?? "border-ink/15 bg-[#FFFDF9]"
-                    }`}
-                  >
-                    {tag}
-                  </span>
-                );
-              })}
-            </div>
-          </Reveal>
-          <Reveal delay={0.32}>
-            <div className="mt-10 flex flex-wrap justify-center gap-4">
-              <Link href="/join" className="btn btn-solid">
-                Request an invite
+            <div className="mt-9 flex flex-wrap justify-center gap-4">
+              <Link href="/experiences" className="btn btn-solid">
+                Explore Bengaluru experiences
               </Link>
-              <Link href="/journey" className="btn btn-outline">
-                See how it works
+              <Link href="/how-it-works" className="btn btn-outline">
+                How Met &amp; Wed works
               </Link>
             </div>
-          </Reveal>
-          <Reveal delay={0.4}>
-            <ul className="mx-auto mt-20 grid max-w-3xl grid-cols-1 gap-6 border-t border-ink/10 pt-8 sm:grid-cols-3">
-              {heroFacts.map((fact) => (
-                <li key={fact.strong}>
-                  <strong className="font-display block text-lg font-semibold">
-                    {fact.strong}
-                  </strong>
-                  <span className="text-sm text-mocha">{fact.span}</span>
-                </li>
-              ))}
-            </ul>
           </Reveal>
         </div>
       </section>
 
       <Marquee />
 
-      <TrustStatsBand />
-
-      <section id="why" className="scroll-mt-24 py-24">
+      <section className="pb-4 pt-16">
         <div className="container-x">
           <SectionHeading
             num="01"
-            eyebrow="The gap we fill"
+            eyebrow="Event discovery"
             title={
               <>
-                Stuck between <em className="text-clay italic">two worlds</em>
+                What’s happening in{" "}
+                <em className="text-clay italic">Bengaluru?</em>
               </>
             }
-            subtitle="People looking for marriage increasingly sit between two unsatisfying experiences. Met To Be is built for exactly that space."
+            subtitle="Find an experience. Meet verified people. See where it goes."
           />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {compareColumns.map((col, i) => (
-              <Reveal key={col.title} delay={i * 0.1}>
-                <article
-                  className={`h-full rounded-2xl p-8 ${
-                    col.featured
-                      ? "bg-ink text-cream shadow-[0_20px_50px_-30px_rgba(35,28,22,0.5)]"
-                      : "card"
-                  }`}
+          <div className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredExperiences.map((experience, i) => (
+              <Reveal key={experience.slug} delay={(i % 4) * 0.08}>
+                <ExperienceCard experience={experience} />
+              </Reveal>
+            ))}
+          </div>
+          <Reveal>
+            <div className="mt-10 text-center">
+              <Link
+                href="/experiences"
+                className="inline-flex items-center gap-2 font-medium text-clay transition-colors hover:text-clay-dark"
+              >
+                Explore all experiences <ArrowRight size={18} />
+              </Link>
+            </div>
+          </Reveal>
+
+          <div className="mt-14 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {categories.map((category, i) => (
+              <Reveal key={category.key} delay={(i % 3) * 0.06}>
+                <Link
+                  href={`/experiences?category=${category.key}`}
+                  className="group flex h-full items-center justify-between gap-4 rounded-2xl border border-ink/10 bg-[#FFFDF9] px-6 py-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-clay"
                 >
-                  <header className="mb-5 flex items-center gap-2.5">
-                    <span
-                      className={`h-2.5 w-2.5 rounded-full ${
-                        col.featured ? "bg-clay" : "bg-linen"
-                      }`}
-                    />
-                    <h3 className="font-display text-xl font-medium">{col.title}</h3>
-                  </header>
-                  <ul>
-                    {col.points.map((point) => (
-                      <li
-                        key={point}
-                        className="relative py-2.5 pl-5 text-[0.95rem] before:absolute before:left-0 before:top-4 before:h-1.5 before:w-1.5 before:rounded-full last:border-b-0 border-b border-dashed border-ink/10"
-                      >
-                        {point}
-                      </li>
-                    ))}
-                  </ul>
-                </article>
+                  <span>
+                    <span className="font-display block text-base font-semibold uppercase tracking-wide">
+                      {category.label}
+                    </span>
+                    <span className="text-sm text-mocha">{category.blurb}</span>
+                  </span>
+                  <ArrowRight
+                    size={18}
+                    className="shrink-0 text-clay transition-transform duration-200 group-hover:translate-x-1"
+                  />
+                </Link>
               </Reveal>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#d2703f_0%,#bc5631_45%,#a94f2d_100%)] py-24 text-white">
-        <Quote
-          aria-hidden="true"
-          size={230}
-          strokeWidth={1}
-          className="absolute -left-10 -top-10 rotate-180 text-marigold/25"
-        />
-        <Quote
-          aria-hidden="true"
-          size={190}
-          strokeWidth={1}
-          className="absolute -bottom-8 right-4 text-white/10"
-        />
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute -right-24 top-1/3 h-72 w-72 rounded-full bg-marigold/20 blur-3xl"
-        />
-        <div className="container-x relative z-10 max-w-3xl text-center">
+      <TrustStatsBand />
+
+      <section className="py-24 pt-8">
+        <div className="container-x max-w-3xl text-center">
           <Reveal>
-            <Logo className="mx-auto mb-8 h-13 w-13 opacity-80" />
-            <blockquote className="font-display text-[clamp(1.7rem,3.4vw,2.6rem)] leading-tight font-medium">
-              “We don’t find your soulmate. We help you meet the people you
-              might choose.”
-            </blockquote>
-            <p className="mx-auto mt-6 max-w-xl text-white/85">
-              No AI soulmate scores. No compatibility percentages. Technology
-              should create a trusted environment — the person, not an
-              algorithm, makes the decision.
+            <p className="eyebrow">Why Met &amp; Wed</p>
+            <h2 className="font-display text-[clamp(1.9rem,3.8vw,3rem)] font-medium leading-tight">
+              Not dating. Not matrimony.
+            </h2>
+            <p className="mx-auto mt-5 max-w-xl text-mocha">
+              Dating apps were built around endless choice. Matrimonial platforms
+              were built around biodata and families. Met &amp; Wed is built around{" "}
+              <strong className="text-ink">meeting</strong> — because you cannot
+              know whether someone could be your life partner from a profile alone.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="py-24">
+      <section className="pb-24">
         <div className="container-x">
-          <SectionHeading
-            num="02"
-            eyebrow="How it works"
-            title={
-              <>
-                Check. Connect. <em className="text-clay italic">Choose.</em>
-              </>
-            }
-            subtitle="A simple three-step journey designed to move you from screen to real life."
-          />
-          <div className="mt-12 grid gap-6 lg:grid-cols-3">
+          <div className="grid gap-6 md:grid-cols-3">
             {journeySteps.map((step, i) => {
               const tones = [
                 {
@@ -240,88 +182,48 @@ export default function HomePage() {
               );
             })}
           </div>
-          <Reveal delay={0.2}>
+          <Reveal>
             <div className="mt-10 text-center">
               <Link
-                href="/journey"
+                href="/how-it-works"
                 className="inline-flex items-center gap-2 font-medium text-clay transition-colors hover:text-clay-dark"
               >
-                Explore the full journey <ArrowRight size={18} />
+                See the full journey <ArrowRight size={18} />
               </Link>
             </div>
           </Reveal>
         </div>
       </section>
 
-      <section className="pb-24">
-        <div className="container-x">
+      <section className="relative overflow-hidden bg-[linear-gradient(135deg,#d2703f_0%,#bc5631_45%,#a94f2d_100%)] py-24 text-white">
+        <Quote
+          aria-hidden="true"
+          size={230}
+          strokeWidth={1}
+          className="absolute -left-10 -top-10 rotate-180 text-marigold/25"
+        />
+        <Quote
+          aria-hidden="true"
+          size={190}
+          strokeWidth={1}
+          className="absolute -bottom-8 right-4 text-white/10"
+        />
+        <div className="container-x relative z-10 grid items-center gap-10 lg:grid-cols-[auto_1fr]">
           <Reveal>
-            <div className="relative overflow-hidden rounded-3xl border border-ink/10 bg-[linear-gradient(135deg,#fcf0d8_0%,#fce9dc_100%)] px-8 py-14 text-center">
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-marigold/25 blur-2xl"
-              />
-              <div
-                aria-hidden="true"
-                className="pointer-events-none absolute -bottom-12 -left-12 h-44 w-44 rounded-full bg-rose/20 blur-2xl"
-              />
-              <p className="eyebrow relative z-10">60-second quiz</p>
-              <h2 className="font-display relative z-10 mx-auto max-w-xl text-[clamp(1.6rem,3vw,2.4rem)] font-medium leading-tight">
-                What’s your <span className="highlight">meeting style</span>?
-              </h2>
-              <p className="relative z-10 mx-auto mt-4 max-w-xl text-mocha">
-                Coffee tables, cooking classes, long dinners or weekend escapes —
-                answer five questions and find the room where you connect best.
-              </p>
-              <Link href="/quiz" className="btn btn-solid relative z-10 mt-7">
-                Take the style quiz
-              </Link>
-            </div>
+            <Logo className="h-24 w-24 opacity-90" />
           </Reveal>
-        </div>
-      </section>
-
-      <section className="py-24 pt-0">
-        <div className="container-x">
-          <SectionHeading
-            num="03"
-            eyebrow="The offline moat"
-            title={
-              <>
-                Events aren’t a side feature.
-                <br />
-                They’re the product.
-              </>
-            }
-            subtitle="Met To Be makes it easier and safer to meet in real life — small rooms, real conversations, zero pressure."
-          />
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {eventTypes.slice(0, 8).map((event, i) => (
-              <Reveal key={event.title} delay={(i % 4) * 0.08}>
-                <div className="card group h-full p-6 transition-all duration-300 hover:-translate-y-1 hover:border-clay hover:shadow-[0_20px_50px_-30px_rgba(196,100,62,0.5)]">
-                  <span
-                    className={`font-display block text-lg font-semibold tracking-[0.1em] ${eventTones[i % 4]}`}
-                  >
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="font-display mt-2 text-lg font-medium">{event.title}</h3>
-                  <p className="mt-1 text-sm text-mocha">{event.description}</p>
-                  <div className="mt-3">
-                    <span
-                      className={`inline-block rounded-full px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wide ${
-                        event.hot ? "bg-clay text-white" : "bg-linen text-mocha"
-                      }`}
-                    >
-                      {event.hot ? "Waitlist only" : event.seats}
-                    </span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal>
-            <p className="font-display mt-16 text-center text-[clamp(1.3rem,2.4vw,1.8rem)]">
-              “The app gets people to the right room. The humans take it from there.”
+          <Reveal delay={0.1}>
+            <p className="eyebrow !text-white/70">The no-algorithm promise</p>
+            <blockquote className="font-display text-[clamp(1.7rem,3.4vw,2.6rem)] leading-tight font-medium">
+              We don’t choose your person. And we don’t want to.
+            </blockquote>
+            <p className="mt-5 max-w-2xl text-white/85">
+              No soulmate score. No “92% compatible”. We believe you know yourself
+              better than a machine does. Our job is to create the opportunity —
+              genuine, marriage-minded people in rooms worth being in.
+            </p>
+            <p className="font-display mt-6 text-xl italic text-marigold">
+              You choose the person. We create the opportunity.
             </p>
           </Reveal>
         </div>
@@ -341,10 +243,10 @@ export default function HomePage() {
               <blockquote>
                 <p className="founder-dropcap relative z-10 text-lg leading-relaxed">
                   Somewhere along the way, finding a life partner became either a game
-                  of swipes or a transaction of biodata. We refused both. Met To Be
-                  exists because this decision deserves better rooms, better questions
-                  and better company — verified people, small tables and conversations
-                  that actually go somewhere.
+                  of swipes or a transaction of biodata. We refused both. Met &amp;
+                  Wed exists because this decision deserves better rooms, better
+                  questions and better company — verified people, small tables and
+                  conversations that actually go somewhere.
                 </p>
                 <p className="relative z-10 mt-5 leading-relaxed text-mocha">
                   Technology will never choose your partner. It will verify the room

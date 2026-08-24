@@ -1,0 +1,15 @@
+
+> met-to-be@0.1.0 start
+> next start
+
+▲ Next.js 16.3.2
+- Local:         http://localhost:3000
+- Network:       http://169.254.228.80:3000
+✓ Ready in 739ms
+✓ Running next.config.ts took 334ms
+[book] {
+  reference: 'MTB-EV-TNLKO2',
+  slug: 'filter-kapi-real-talk',
+  name: 'Atul',
+  email: 'atulnfsu@gmail.com'
+} upi mode

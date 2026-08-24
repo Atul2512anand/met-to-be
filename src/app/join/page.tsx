@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Reveal from "@/components/Reveal";
 import ApplicationForm from "@/components/ApplicationForm";
 import { audiencePoints, formatLabels, type QuizStyleKey } from "@/lib/data";
+import { getExperience } from "@/lib/events";
 
 export const metadata: Metadata = {
-  title: "Apply to Join",
+  title: "Join Met & Wed",
   description:
-    "Membership at Met To Be is applied for, reviewed by humans and verified. Request your invitation to the Founding 100.",
+    "Membership at Met & Wed is applied for, reviewed by humans and verified. Join Bengaluru's marriage-first community.",
 };
 
 const pillars = [
@@ -30,37 +31,40 @@ const pillars = [
 const processSteps = [
   "Submit your application below — two minutes, no payment",
   "A human reviews it within 48 hours (not a scoring model)",
-  "Accepted applicants receive identity verification steps",
-  "Founding 100 onboarding, then first event invitations",
+  "Accepted applicants complete identity verification",
+  "Choose the Met & Wed Pass and book your first experience",
 ];
 
 export default async function JoinPage({
   searchParams,
 }: PageProps<"/join">) {
-  const { format } = await searchParams;
+  const { format, experience } = await searchParams;
   const recommended =
     typeof format === "string" && format in formatLabels
       ? (format as QuizStyleKey)
       : undefined;
+  const experienceName =
+    typeof experience === "string" ? getExperience(experience)?.name : undefined;
 
   return (
     <section className="relative overflow-hidden bg-ink bg-[radial-gradient(70%_120%_at_80%_0%,rgba(196,100,62,0.3),transparent_60%)] py-24 text-cream">
       <div aria-hidden="true" className="pointer-events-none absolute inset-0">
         <div className="floaty absolute -right-24 top-1/4 h-80 w-80 rounded-full bg-marigold/15 blur-3xl" />
-        <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-rose/15 blur-3xl" />
+        <div className="absolute -left-20 bottom-0 h-72 w-72 rounded-full bg-rose/15 blur-3xl">
+        </div>
       </div>
       <div className="container-x relative z-10">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="eyebrow">Founding 100 · By application only</p>
+          <p className="eyebrow">By application · Bengaluru first</p>
           <h1 className="font-display text-[clamp(2.2rem,4.5vw,3.6rem)] font-medium leading-[1.12]">
             Membership is earned,
             <br />
             not swiped for.
           </h1>
           <p className="mx-auto mt-6 max-w-xl text-cream/70">
-            Met To Be is a curated community of one hundred founding members per
-            launch city. We read every application ourselves — because the quality
-            of the room is the product.
+            Met &amp; Wed is a curated community of verified, marriage-minded
+            people in Bengaluru. We read every application ourselves — because the
+            quality of the room is the product.
           </p>
         </Reveal>
 
@@ -122,7 +126,10 @@ export default async function JoinPage({
               <p className="mb-7 mt-1.5 text-sm text-cream/55">
                 Three short steps. No payment, no commitment.
               </p>
-              <ApplicationForm recommended={recommended} />
+              <ApplicationForm
+                recommended={recommended}
+                experienceName={experienceName}
+              />
             </div>
           </Reveal>
         </div>

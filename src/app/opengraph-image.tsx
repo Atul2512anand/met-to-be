@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Met To Be — Meet. Connect. Choose.";
+export const alt = "Met & Wed — Maybe You Haven’t Met Them Yet.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -24,7 +24,7 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: 24,
-            marginBottom: 28,
+            marginBottom: 24,
           }}
         >
           <div
@@ -47,7 +47,10 @@ export default function OpengraphImage() {
           />
         </div>
         <div style={{ display: "flex", fontSize: 96, fontWeight: 700, letterSpacing: 8 }}>
-          MET TO BE
+          MET &amp; WED
+        </div>
+        <div style={{ display: "flex", marginTop: 28, fontSize: 32, color: "#C4643E" }}>
+          Maybe You Haven’t Met Them Yet.
         </div>
         <div style={{ display: "flex", gap: 20, marginTop: 40 }}>
           {["MEET.", "CONNECT.", "CHOOSE."].map((word, i) => (
@@ -57,7 +60,7 @@ export default function OpengraphImage() {
                 display: "flex",
                 padding: "12px 32px",
                 borderRadius: 999,
-                fontSize: 30,
+                fontSize: 26,
                 fontWeight: 600,
                 letterSpacing: 4,
                 backgroundColor: i === 1 ? "#C4643E" : "#231C16",
@@ -67,16 +70,6 @@ export default function OpengraphImage() {
               {word}
             </div>
           ))}
-        </div>
-        <div
-          style={{
-            display: "flex",
-            marginTop: 48,
-            fontSize: 26,
-            color: "#5C5248",
-          }}
-        >
-          Too modern for matrimony. Too intentional for dating.
         </div>
       </div>
     ),

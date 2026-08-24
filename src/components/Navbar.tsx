@@ -34,7 +34,7 @@ export default function Navbar() {
         <Link href="/" className="inline-flex items-center gap-2.5 text-ink" aria-label={site.name}>
           <Logo />
           <span className="font-display text-lg font-semibold tracking-[0.08em]">
-            MET&nbsp;TO&nbsp;BE
+            MET&nbsp;&amp;&nbsp;WED
           </span>
         </Link>
 
@@ -52,7 +52,7 @@ export default function Navbar() {
             </Link>
           ))}
           <Link href="/join" className="btn btn-solid !px-6 !py-2.5 !text-sm">
-            Join the Founding 100
+            Join Met &amp; Wed
           </Link>
         </nav>
 

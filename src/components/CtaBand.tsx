@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MapPin } from "lucide-react";
 import Reveal from "./Reveal";
 
 export default function CtaBand() {
@@ -11,20 +12,28 @@ export default function CtaBand() {
       </div>
       <div className="container-x relative z-10 max-w-3xl text-center">
         <Reveal>
-          <p className="eyebrow">Launch strategy</p>
+          <p className="eyebrow">Launch city</p>
           <h2 className="font-display text-[clamp(1.9rem,3.8vw,3rem)] leading-tight font-medium">
-            We start with one city.
+            Bengaluru is live.
             <br />
-            And a Founding 100.
+            Your table is waiting.
           </h2>
-          <p className="mx-auto mt-5 max-w-xl text-cream/70">
-            The first 100 verified members shape everything — the events, the
-            culture, the community. Invitation-led, density-first, one city at a
-            time.
+          <p className="mx-auto mt-5 max-w-xl flex items-center justify-center gap-1.5 text-cream/70">
+            <MapPin size={16} className="shrink-0 text-peach" />
+            Currently in Bengaluru — Mumbai, Delhi NCR, Hyderabad, Pune and
+            Chennai are coming soon.
           </p>
-          <Link href="/join" className="btn btn-light mt-8">
-            Request an invite
-          </Link>
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
+            <Link href="/experiences" className="btn btn-light">
+              See this month’s experiences
+            </Link>
+            <Link
+              href="/cities"
+              className="inline-flex items-center rounded-full border border-cream/25 px-7 py-3.5 text-sm font-semibold text-cream transition-colors hover:border-clay hover:text-peach"
+            >
+              Join a city waitlist
+            </Link>
+          </div>
         </Reveal>
       </div>
     </section>

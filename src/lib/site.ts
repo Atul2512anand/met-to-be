@@ -1,16 +1,24 @@
 export const site = {
-  name: "Met To Be",
-  tagline: "Meet. Connect. Choose.",
-  positioning: "Too modern for matrimony. Too intentional for dating.",
+  name: "Met & Wed",
+  tagline: "Maybe You Haven’t Met Them Yet.",
+  positioning: "A modern way to meet people who are ready for marriage.",
+  cityLine: "Currently in Bengaluru · Other cities coming soon",
   description:
-    "Met To Be is a verified, offline-first marriage-intent relationship platform. No AI matchmaking. No endless swiping. Curated events and real-life meetings for people serious about marriage.",
+    "Met & Wed is a marriage-first platform for Bengaluru — curated real-world experiences with verified, marriage-minded people. Not a dating app. Not a matrimonial site.",
   url: "https://met-to-be.vercel.app",
-  email: "hello@mettobe.in",
+  email: "hello@metandwed.in",
+
+  owner: {
+    notifyEmail: "atul215002@gmail.com",
+    gmailUser: "atul215002@gmail.com",
+    upiId: "atul25anand@okicici",
+    upiName: "Met & Wed",
+  },
 };
 
 export const navLinks = [
-  { href: "/journey", label: "The Journey" },
-  { href: "/events", label: "Events" },
+  { href: "/experiences", label: "Experiences" },
+  { href: "/how-it-works", label: "How It Works" },
   { href: "/trust", label: "Trust & Safety" },
   { href: "/membership", label: "Membership" },
 ];

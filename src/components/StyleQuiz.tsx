@@ -129,7 +129,7 @@ export default function StyleQuiz() {
 
           <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
             <Link href={`/join?format=${winner}`} className="btn btn-solid">
-              Apply to join Met To Be
+              Join Met &amp; Wed
             </Link>
             <button
               type="button"
